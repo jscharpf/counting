@@ -48,7 +48,21 @@
       <p>Why can&rsquo;t a model count how many objects there are?</p>
       <p>A common issue is ambiguity. Real-world scenes can be quite challenging for a model to interpret. The image might be cluttered, or objects might be bunched together and hard to distinguish. The model might be asked to count things that are partially or fully occluded, or objects that are printed on a page. Sometimes the model can have trouble simply distinguishing an object from its surroundings. Sometimes it can mistake a reflected image for a real object or print. Sometimes a real object can be mistaken for a reflection or print. Sometimes it simply does not know what to count.</p>
       <p>Likewise, recognition also poses a problem for VLMs when it comes to counting. Counting &ldquo;eggs&rdquo; is much easier than counting &ldquo;brown eggs&rdquo; if there are white eggs and brown eggs mixed in. Counting &ldquo;clocks&rdquo; is much easier than counting &ldquo;clocks showing two-thirty&rdquo; if there are many clocks in similar configurations but different times.</p>
+      <figure class="post-figure post-figure--medium">
+        <picture>
+          <source srcset="eggs.webp" type="image/webp">
+          <img src="eggs.png" alt="LVLM-Count grounding step: candidate detections for brown egg in a mixed-egg image" width="734" height="718" loading="lazy" decoding="async">
+        </picture>
+        <figcaption>Grounding step from LVLM-Count, showing candidate detections for &ldquo;brown egg&rdquo; in a mixed-egg image. Source: Qharabagh et al., 2026.</figcaption>
+      </figure>
       <p>However, even in carefully controlled settings, counting can still be unexpectedly hard. Recent research using simple geometric shapes has shown a compositional breakdown: VLMs perform significantly worse when asked to count images containing multiple object types, even when the objects are simple shapes like circles, triangles, or squares. [Guo et al., 2025].</p>
+      <figure class="post-figure post-figure--medium">
+        <picture>
+          <source srcset="types.webp" type="image/webp">
+          <img src="types.png" alt="VLMCountBench: VLMs counting simple shapes at different compositional difficulty levels" width="1092" height="756" loading="lazy" decoding="async">
+        </picture>
+        <figcaption>VLMCountBench tests whether VLMs can count simple shapes under different levels of compositional difficulty. Source: Guo et al., 2025.</figcaption>
+      </figure>
       <p>For example, on VLMCountBench, Qwen2.5-72B scores 0.60 accuracy in the Level 1 setting, where there is only one shape type to count, but drops to 0.45 accuracy in the Level 3 setting, where three shape types must be counted separately [Guo et al., 2025].</p>
       <p>A related issue occurs when the total number of objects increases. Large-count evaluations have shown that some LVLMs perform better on small quantities, often fewer than 20 objects, but performance deteriorates as object counts grow larger [Qharabagh et al., 2026].</p>
       <p>So there are at least two ways that counting can be unexpectedly challenging:</p>
@@ -74,15 +88,22 @@
       <p>An alternative approach to improving performance is to improve the pipeline around the model.</p>
       <p>One could imagine simply counting fewer objects at a time. If the model has a hard time looking at the whole image, perhaps it will have an easier time looking at just one part of the image.</p>
       <p>That is the main idea behind LVLM-Count. This method does not involve additional training. Instead, it combines a grounding model, a segmentation model, object-aware division, and an LVLM counting step to create a better counting process [Qharabagh et al., 2026].</p>
+      <figure class="post-figure post-figure--large">
+        <picture>
+          <source srcset="pipeline.webp" type="image/webp">
+          <img src="pipeline.png" alt="LVLM-Count pipeline for divide-and-conquer object counting" width="1756" height="582" loading="lazy" decoding="async">
+        </picture>
+        <figcaption>LVLM-Count pipeline for divide-and-conquer object counting. Source: Qharabagh et al., 2026.</figcaption>
+      </figure>
       <p>At a high level, this counting pipeline works like this:</p>
-      <ol>
-        <li>Image + question are given as input.</li>
-        <li>The target type to count is extracted from the question.</li>
-        <li>A grounding model locates the relevant region of the image.</li>
-        <li>A segmentation model identifies the target instances.</li>
-        <li>The image is partitioned in an object-aware way, so that the crop does not cut through objects.</li>
-        <li>The LVLM is used to count the cropped images.</li>
-        <li>The counts from the sub-images are added together.</li>
+      <ol class="post-pipeline">
+        <li><strong>Image + question are given as input.</strong></li>
+        <li><strong>The target type to count is extracted from the question.</strong></li>
+        <li><strong>A grounding model locates the relevant region of the image.</strong></li>
+        <li><strong>A segmentation model identifies the target instances.</strong></li>
+        <li><strong>The image is partitioned in an object-aware way, so that the crop does not cut through objects.</strong></li>
+        <li><strong>The LVLM is used to count the cropped images.</strong></li>
+        <li><strong>The counts from the sub-images are added together.</strong></li>
       </ol>
       <p>That is divide and conquer.</p>
       <p>Instead of asking the model to count how many objects there are in the entire image, we count how many objects there are in each part of the image and add the numbers together.</p>

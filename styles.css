@@ -211,6 +211,22 @@ a:hover {
   font-weight: 600;
 }
 
+.post-section ol.post-pipeline {
+  list-style-position: inside;
+  margin: 0 0 16px;
+  padding: 0;
+  text-align: center;
+}
+
+.post-section ol.post-pipeline li {
+  font-size: 17px;
+  margin-bottom: 16px;
+}
+
+.post-section ol.post-pipeline li:last-child {
+  margin-bottom: 0;
+}
+
 .post-figure {
   margin: 24px 0 8px;
 }
@@ -219,6 +235,12 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   max-width: 68%;
+}
+
+.post-figure--large {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 85%;
 }
 
 .post-figure img {
@@ -295,7 +317,8 @@ a:hover {
     gap: 4px;
   }
 
-  .post-figure--medium {
+  .post-figure--medium,
+  .post-figure--large {
     max-width: 100%;
   }
 }
