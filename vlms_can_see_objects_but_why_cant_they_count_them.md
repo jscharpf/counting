@@ -16,7 +16,12 @@ Recognition is not the same as enumeration.
 
 Why can’t a model count how many objects there are?
 
-A common issue is ambiguity. Real-world scenes can be quite challenging for a model to interpret. The image might be cluttered, or objects might be bunched together and hard to distinguish. The model might be asked to count things that are partially or fully occluded, or objects that are printed on a page. Sometimes the model can have trouble simply distinguishing an object from its surroundings. Sometimes it can mistake a reflected image for a real object or print. Sometimes a real object can be mistaken for a reflection or print. Sometimes it simply does not know what to count.
+A common issue is ambiguity. Real-world scenes can be quite challenging for a model to interpret. The image might be cluttered, or objects might be bunched together and hard to distinguish. The model might be asked to count things that are partially or fully occluded, or objects that are printed on a page.
+
+- The model can have trouble simply distinguishing an object from its surroundings.
+- It can mistake a reflected image for a real object or print.
+- A real object can be mistaken for a reflection or print.
+- It simply does not know what to count.
 
 Likewise, recognition also poses a problem for VLMs when it comes to counting. Counting “eggs” is much easier than counting “brown eggs” if there are white eggs and brown eggs mixed in. Counting “clocks” is much easier than counting “clocks showing two-thirty” if there are many clocks in similar configurations but different times.
 

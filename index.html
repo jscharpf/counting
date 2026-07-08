@@ -46,7 +46,13 @@
       <h2>Where Does Counting Go Wrong?</h2>
       <div class="section-divider"></div>
       <p>Why can&rsquo;t a model count how many objects there are?</p>
-      <p>A common issue is ambiguity. Real-world scenes can be quite challenging for a model to interpret. The image might be cluttered, or objects might be bunched together and hard to distinguish. The model might be asked to count things that are partially or fully occluded, or objects that are printed on a page. Sometimes the model can have trouble simply distinguishing an object from its surroundings. Sometimes it can mistake a reflected image for a real object or print. Sometimes a real object can be mistaken for a reflection or print. Sometimes it simply does not know what to count.</p>
+      <p>A common issue is ambiguity. Real-world scenes can be quite challenging for a model to interpret. The image might be cluttered, or objects might be bunched together and hard to distinguish. The model might be asked to count things that are partially or fully occluded, or objects that are printed on a page.</p>
+      <ul>
+        <li>The model can have trouble simply distinguishing an object from its surroundings.</li>
+        <li>It can mistake a reflected image for a real object or print.</li>
+        <li>A real object can be mistaken for a reflection or print.</li>
+        <li>It simply does not know what to count.</li>
+      </ul>
       <p>Likewise, recognition also poses a problem for VLMs when it comes to counting. Counting &ldquo;eggs&rdquo; is much easier than counting &ldquo;brown eggs&rdquo; if there are white eggs and brown eggs mixed in. Counting &ldquo;clocks&rdquo; is much easier than counting &ldquo;clocks showing two-thirty&rdquo; if there are many clocks in similar configurations but different times.</p>
       <figure class="post-figure post-figure--medium">
         <picture>
