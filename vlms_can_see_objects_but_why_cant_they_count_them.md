@@ -8,7 +8,7 @@ But there is one basic visual task that these models are frequently unable to pe
 
 It is surprisingly non-trivial for a model to count how many objects there are. At first glance, this seems odd. If the model can see objects, you would assume that it should also be able to count them.
 
-However, counting requires a level of visual understanding beyond simple recognition. It requires distinguishing individual instances in a class, avoiding overcounting, and summarizing the result. A model that can report “boxes on the shelf” is not necessarily capable of reporting “47 boxes on the shelf.”
+However, counting requires more than simple recognition. A model that can report “boxes on the shelf” is not necessarily capable of reporting “47 boxes on the shelf.”
 
 Recognition is not the same as enumeration.
 
